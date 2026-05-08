@@ -34,7 +34,15 @@ export const fetchNotifications = async (params = {}) => {
         notification_type: params.notification_type,
       },
     });
-    return response.data;
+    
+    const notificationsArray = response.data.notifications || [];
+    return notificationsArray.map(n => ({
+      id: n.ID || n.id,
+      type: n.Type || n.type,
+      message: n.Message || n.message,
+      timestamp: n.Timestamp || n.timestamp,
+      read: n.Read !== undefined ? n.Read : (n.read || false)
+    }));
   } catch (error) {
     console.warn("⚠️ API error or missing token. Falling back to mock data.");
     
