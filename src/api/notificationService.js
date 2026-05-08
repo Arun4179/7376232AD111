@@ -22,7 +22,8 @@ const MOCK_NOTIFICATIONS = [
  */
 export const fetchNotifications = async (params = {}) => {
   try {
-    const token = localStorage.getItem('token') || '';
+    const FALLBACK_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiYXVkIjoiaHR0cDovLzIwLjI0NC41Ni4xNDQvZXZhbHVhdGlvbi1zZXJ2aWNlIiwiZW1haWwiOiJhcnVuLmFkMjNAYml0c2F0aHkuYWMuaW4iLCJleHAiOjE3NzgyMzgyODEsImlhdCI6MTc3ODIzNzM4MSwiaXNzIjoiQWZmb3JkIE1lZGljYWwgVGVjaG5vbG9naWVzIFByaXZhdGUgTGltaXRlZCIsImp0aSI6IjY5NzVlZDIxLTk0OWMtNGVkYi1iOWY5LTU1YjU5MWIyYWQxNCIsImxvY2FsZSI6ImVuLUlOIiwibmFtZSI6ImFydW4gbiIsInN1YiI6ImJhNmI5MTViLTA0YTUtNDQwMy05YTYyLWQ1OWZkNjhhZjMyYiJ9LCJlbWFpbCI6ImFydW4uYWQyM0BiaXRzYXRoeS5hYy5pbiIsIm5hbWUiOiJhcnVuIG4iLCJyb2xsTm8iOiI3Mzc2MjMyYWQxMTEiLCJhY2Nlc3NDb2RlIjoidUthSmZtIiwiY2xpZW50SUQiOiJiYTZiOTE1Yi0wNGE1LTQ0MDMtOWE2Mi1kNTlmZDY4YWYzMmIiLCJjbGllbnRTZWNyZXQiOiJCRW5tZFdQeGFxdnpQYnhZIn0.YdQJUATX1cK4Cdel93MxiE3vSpultOExBlCfk4UPv7o";
+    const token = localStorage.getItem('token') || FALLBACK_TOKEN;
     const response = await axios.get(API_URL, {
       headers: {
         Authorization: `Bearer ${token}`,
