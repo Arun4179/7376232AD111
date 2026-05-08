@@ -36,18 +36,13 @@ export const fetchNotifications = async (params = {}) => {
     });
     
     const notificationsArray = response.data.notifications || [];
-    const readIds = JSON.parse(localStorage.getItem('readNotificationIds') || '[]');
-
-    return notificationsArray.map(n => {
-      const id = n.ID || n.id;
-      return {
-        id,
-        type: n.Type || n.type,
-        message: n.Message || n.message,
-        timestamp: n.Timestamp || n.timestamp,
-        read: readIds.includes(id) || (n.Read !== undefined ? n.Read : (n.read || false))
-      };
-    });
+    return notificationsArray.map(n => ({
+      id: n.ID || n.id,
+      type: n.Type || n.type,
+      message: n.Message || n.message,
+      timestamp: n.Timestamp || n.timestamp,
+      read: n.Read !== undefined ? n.Read : (n.read || false)
+    }));
   } catch (error) {
     console.warn("⚠️ API error or missing token. Falling back to mock data.");
     
@@ -64,13 +59,5 @@ export const fetchNotifications = async (params = {}) => {
     const paginatedData = data.slice(startIndex, startIndex + limit);
     
     return paginatedData;
-  }
-};
-
-export const markNotificationAsRead = (id) => {
-  const readIds = JSON.parse(localStorage.getItem('readNotificationIds') || '[]');
-  if (!readIds.includes(id)) {
-    readIds.push(id);
-    localStorage.setItem('readNotificationIds', JSON.stringify(readIds));
   }
 };

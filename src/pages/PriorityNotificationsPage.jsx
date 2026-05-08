@@ -100,13 +100,7 @@ const PriorityNotificationsPage = () => {
       
       <Box sx={{ mt: 3 }}>
         {notifications.map((notif) => (
-          <NotificationCard 
-            key={notif.id} 
-            notification={notif} 
-            onReadUpdate={(id) => {
-              setNotifications(prev => prev.filter(n => n.id !== id));
-            }}
-          />
+          <NotificationCard key={notif.id} notification={notif} />
         ))}
       </Box>
       
